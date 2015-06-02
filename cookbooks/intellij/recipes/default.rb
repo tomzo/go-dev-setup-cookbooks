@@ -19,44 +19,47 @@
 
 ## intellij
 
+# provision for the same use that runs this recipe
+user = ENV['USER']
+
 cookbook_file "/usr/share/applications/intellij.desktop" do
-  owner "vagrant"
-  group "vagrant"
+  owner user
+  group user
   source "ubuntu.intellij.desktop"
   backup false
   mode "0755"
 end
 
-["/home/vagrant/misc_go_files" ,"/home/vagrant/.IdeaIC13", "/home/vagrant/.IdeaIC13/config", "/home/vagrant/.IdeaIC13/config/options"].each do |dir|
+["/home/#{user}/misc_go_files" ,"/home/#{user}/.IdeaIC13", "/home/#{user}/.IdeaIC13/config", "/home/#{user}/.IdeaIC13/config/options"].each do |dir|
   directory dir do
-    owner "vagrant"
-    group "vagrant"
+    owner user
+    group user
     mode 00755
     recursive true
     action :create
   end
 end
 
-cookbook_file "/home/vagrant/misc_go_files/open_go_in_intellij.sh" do
-  owner "vagrant"
-  group "vagrant"
+cookbook_file "/home/#{user}/misc_go_files/open_go_in_intellij.sh" do
+  owner user
+  group user
   source "open_go_in_intellij.sh"
   backup false
   mode "0755"
 end
 
-cookbook_file "/home/vagrant/misc_go_files/workspace.xml" do
-  owner "vagrant"
-  group "vagrant"
+cookbook_file "/home/#{user}/misc_go_files/workspace.xml" do
+  owner user
+  group user
   source "workspace.xml"
   backup false
   mode "0664"
 end
 
-cookbook_file "/home/vagrant/.IdeaIC13/config/options/jdk.table.xml" do
+cookbook_file "/home/#{user}/.IdeaIC13/config/options/jdk.table.xml" do
   source "jdk.table.xml"
-  owner "vagrant"
-  group "vagrant"
+  owner user
+  group user
   backup false
   mode "0664"
 end
