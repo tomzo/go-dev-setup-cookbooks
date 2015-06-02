@@ -20,7 +20,7 @@
 ## intellij
 
 # provision for the same use that runs this recipe
-user = ENV['USER']
+user = node[:intellij][:user]
 
 cookbook_file "/usr/share/applications/intellij.desktop" do
   owner user

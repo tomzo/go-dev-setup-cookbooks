@@ -1,0 +1,1 @@
+default[:intellij][:user] = 'vagrant'
