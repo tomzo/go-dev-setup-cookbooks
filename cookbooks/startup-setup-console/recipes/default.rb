@@ -1,11 +1,12 @@
 #setting up auto login for console
 
+user = node['startup-setup-console']['user']
+
 script "startup-setup-console" do
   interpreter "bash"
   user "root"
-  cwd "/home/vagrant"
+  cwd "/home/#{user}"
   code <<-EOH
-    sed -i -e 's#exec /sbin/getty#& --autologin vagrant#' /etc/init/tty1.conf
+    sed -i -e 's#exec /sbin/getty#& --autologin #{user}#' /etc/init/tty1.conf
   EOH
 end
-

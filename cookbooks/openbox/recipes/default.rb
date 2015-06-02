@@ -1,43 +1,45 @@
 ## openbox
 
-cookbook_file "/home/vagrant/.xinitrc" do
-  owner "vagrant"
-  group "vagrant"
+user = node[:openbox][:user]
+
+cookbook_file "/home/#{user}/.xinitrc" do
+  owner "#{user}"
+  group "#{user}"
   source "xinitrc"
   backup false
   mode "0664"
 end
 
-cookbook_file "/home/vagrant/.bash_profile" do
-  owner "vagrant"
-  group "vagrant"
+cookbook_file "/home/#{user}/.bash_profile" do
+  owner "#{user}"
+  group "#{user}"
   source "bash_profile"
   backup false
   mode "0664"
 end
 
-cookbook_file "/home/vagrant/cairo-dock_configuration.zip" do
-  owner "vagrant"
-  group "vagrant"
+cookbook_file "/home/#{user}/cairo-dock_configuration.zip" do
+  owner "#{user}"
+  group "#{user}"
   source "cairo-dock_configuration.zip"
   backup false
   mode "0664"
 end
 
-["/home/vagrant/.config/", "/home/vagrant/.config/openbox/"].each do |dir|
+["/home/#{user}/.config/", "/home/#{user}/.config/openbox/"].each do |dir|
   directory dir do
-    owner "vagrant"
-    group "vagrant"
+    owner "#{user}"
+    group "#{user}"
     mode 00755
     recursive true
     action :create
   end
 end
 
-["/home/vagrant/.config/cairo-dock"].each do |dir|
+["/home/#{user}/.config/cairo-dock"].each do |dir|
   directory dir do
-    owner "vagrant"
-    group "vagrant"
+    owner "#{user}"
+    group "#{user}"
     mode 00755
     recursive true
     action :create
@@ -53,14 +55,14 @@ script "install_openbox" do
 
   sudo apt-get install -y cairo-dock
 
-  cp -R /etc/xdg/openbox/* /home/vagrant/.config/openbox
-  unzip /home/vagrant/cairo-dock_configuration.zip -d /home/vagrant/.config/cairo-dock 
+  cp -R /etc/xdg/openbox/* /home/#{user}/.config/openbox
+  unzip /home/#{user}/cairo-dock_configuration.zip -d /home/#{user}/.config/cairo-dock
   EOH
 end
 
-cookbook_file "/home/vagrant/.config/openbox/menu.xml" do
-  owner "vagrant"
-  group "vagrant"
+cookbook_file "/home/#{user}/.config/openbox/menu.xml" do
+  owner "#{user}"
+  group "#{user}"
   source "menu.xml"
   backup false
   mode "0664"
